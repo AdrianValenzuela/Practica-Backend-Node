@@ -8,14 +8,13 @@ router.get('/', async (req, res, next) => {
     try {
         const name = req.query.name;
         const status = parseInt(req.query.status);
-        const minPrice = parseFloat(req.query.minPrice);
-        const maxPrice = parseFloat(req.query.maxPrice);
+        const price = req.query.price;
         const tag = req.query.tag;
         const skip = parseInt(req.query.skip);
         const limit = parseInt(req.query.limit);
         const sort = req.query.sort;
 
-        const results = await Ad.fillByFilters(name, status, minPrice, maxPrice, tag, skip, limit, sort);
+        const results = await Ad.fillByFilters(name, status, price, tag, skip, limit, sort);
         res.render('index', { results, statusEnum }); // { results: results,  statusEnum: statusEnum} => { result, statusEnum }
     } catch (error) {
         next(error);

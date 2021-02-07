@@ -20,32 +20,48 @@ const statusEnum = {
 }
 
 // get ads by filters
-adSchema.statics.fillByFilters = function (name, status, minPrice, maxPrice, tag, skip, limit, sort) {
+adSchema.statics.fillByFilters = function (name, status, price, tag, skip, limit, sort) {
     const filtro = {};
 
     if (name) {
-        filtro.name = { $regex: name + '+' };
+        const regex = name
+        filtro.name = { $regex: regex, $options: 'i' }
     }
 
 
     if (status) {
-        filtro.status = status;
+        filtro.status = status
     }
 
 
-    if (minPrice) {
-        filtro.price = { $gte: minPrice };
-    }
-
-
-    if (maxPrice) {
-        filtro.price = { $lte: maxPrice };
+    if (price) {
+        if (!price.toString().includes('-')) {
+            filtro.price = price
+        }
+        else {
+            const position = price.indexOf('-');
+            const split = price.split('-');
+            if (split[0] == '') {
+                const filterPrice = split[1];
+                filtro.price = { $lte: parseFloat(filterPrice) }
+            }
+            else if (split[1] == '') {
+                const filterPrice = split[0];
+                filtro.price = { $gte: parseFloat(filterPrice) }
+            }
+            else {
+                const minPrice = split[0];
+                const maxPrice = split[1];
+                filtro.price = { $gte: parseFloat(minPrice), $lte: parseFloat(maxPrice) }
+            }
+        }
     }
 
     if (tag) {
         filtro.tags = tag
     }
 
+    console.log(filtro);
     const query = Ad.find(filtro);
     query.limit(limit);
     query.skip(skip);
