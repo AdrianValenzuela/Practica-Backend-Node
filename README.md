@@ -3,6 +3,7 @@
 
 ## Modelo de Anuncio
 Un Anuncio se compone de:
+
 Nombre (string),
 
 Estado (int),
