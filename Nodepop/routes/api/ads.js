@@ -38,6 +38,12 @@ router.get('/tags', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
         const data = req.body;
+
+        if (data.status > 3) {
+           return res.json({ error : 'The status must be a number between 0 and 3' });
+        }
+
+
         const ad = new Ad(data);
 
         const newAd = await ad.save();
