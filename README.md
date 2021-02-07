@@ -38,9 +38,7 @@ name -> De tipo string. Permite buscar por nombre (si no se indica el nombre com
 
 status -> De tipo int. Permite buscar por el estado del anuncio. (ver posibles estados en el modelo)
 
-minPrice -> De tipo float. Para buscar por el precio mínimo a pagar
-
-maxPrice -> De tipo float. Para buscar por el precio máximo a pagar
+price -> puede recibir 50 y buscará por precio exacto, -60 y buscará menor a 60, 70- y buscará mayor a 70 y 80-90 y buscará por ese rango de precios
 
 tag -> De tipo string. Permite buscar por un tag.
 
