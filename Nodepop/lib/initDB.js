@@ -20,7 +20,7 @@ mongoose.connection.once('open', async () => {
             tags: ['motor', 'lifestyle']
         },
         {
-            name: 'WOW',
+            name: 'Phone',
             status: 1,
             price: 150,
             photo: 'phone.jpg',
